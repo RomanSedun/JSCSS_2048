@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS/CSS 2048</title>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="main">
+		<div class="main-header">
+			Счёт: <span id="score01">0</span>
+		</div>
+		<div class="main-content">
+			<!-- 1 -->
+			<div class="main-content-elem" id="c00"></div>
+			<div class="main-content-elem" id="c01"></div>
+			<div class="main-content-elem" id="c02"></div>
+			<div class="main-content-elem" id="c03"></div>
+			<!-- 2 -->
+			<div class="main-content-elem" id="c10"></div>
+			<div class="main-content-elem" id="c11"></div>
+			<div class="main-content-elem" id="c12"></div>
+			<div class="main-content-elem" id="c13"></div>
+			<!-- 3 -->
+			<div class="main-content-elem" id="c20"></div>
+			<div class="main-content-elem" id="c21"></div>
+			<div class="main-content-elem" id="c22"></div>
+			<div class="main-content-elem" id="c23"></div>
+			<!-- 4 -->
+			<div class="main-content-elem" id="c30"></div>
+			<div class="main-content-elem" id="c31"></div>
+			<div class="main-content-elem" id="c32"></div>
+			<div class="main-content-elem" id="c33"></div>
+		</div>
+		<div class="main-bottom" id="gameover">
+			<p>Игра окончена!!!</p>
+			<p>Счёт: <span id="score02"></span></p>
+			<p><a href="javascript:start()">Попробуй снова!</a></p>
+		</div>
+	</div>
+
+    <script src="scripts.js"></script> 
+</body>
+</html>

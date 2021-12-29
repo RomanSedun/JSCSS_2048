@@ -57,3 +57,124 @@ dataChange = () => {
 		document.getElementById('gameover').style.display = 'none';
 	}
 }
+
+isgameOver = () => {
+	for (r = 0; r < 4; r++) {
+		for (c = 0; c < 4; c++) {
+			if (gameMain.myData[r][c] == 0) {
+				return false;
+			}
+			if (c < 3) {
+				if (gameMain.myData[r][c] == gameMain.myData[r][c + 1]) {
+					return false;
+				}
+			}
+			if (r < 3) {
+				if (gameMain.myData[r][c] == gameMain.myData[r + 1][c]) {
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
+moveLeft = () => {
+	let before = String(gameMain.myData);
+	for (r = 0; r < 4; r++) {
+		moveLeftInRow(r);
+	}
+	let after = String(gameMain.myData);
+	if (before != after) {
+		randomNum();
+		if (isgameOver()) {
+			gameMain.status = gameMain.gameOver;
+		}
+		dataChange();
+	}
+}
+
+moveLeftInRow = (r) => {
+	for (c = 0; c < 3; c++) {
+		let next = getNEXTinRow(r, c);
+		if (next != -1) {
+			if (gameMain.myData[r][c] == 0) {
+				gameMain.myData[r][c] = gameMain.myData[r][next];
+				gameMain.myData[r][next] = 0;
+				c--;
+			}
+			else if (gameMain.myData[r][c] == gameMain.myData[r][next]) {
+				gameMain.myData[r][c] *= 2;
+				gameMain.myData[r][next] = 0;
+				gameMain.score += gameMain.myData[r][c];
+			}
+		}
+		else {
+			break;
+		}
+	}
+}
+
+getNEXTinRow = (r, c) => {
+	for (i = c + 1; i < 4; i++) {
+		if (gameMain.myData[r][i] != 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+moveRight = () => {
+	let before = String(gameMain.myData);
+	for (r = 0; r < 4; r++) {
+		moveRightInRow(r);
+	}
+	let after = String(gameMain.myData);
+	if (before != after) {
+		randomNum();
+		if (isgameOver()) {
+			gameMain.status = gameMain.gameOver;
+		}
+		dataChange();
+	}
+}
+
+moveRightInRow = (r) => {
+	for (c = 3; c > 0; c--) {
+		let next = RightgetNEXTinRow(r, c);
+		if (next != -1) {
+			if (gameMain.myData[r][c] == 0) {
+				gameMain.myData[r][c] = gameMain.myData[r][next];
+				gameMain.myData[r][next] = 0;
+				c++;
+			}
+			else if (gameMain.myData[r][c] == gameMain.myData[r][next]) {
+				gameMain.myData[r][c] *= 2;
+				gameMain.myData[r][next] = 0;
+				gameMain.score += gameMain.myData[r][c];
+			}
+		}
+		else {
+			break;
+		}
+	}
+}
+
+RightgetNEXTinRow = (r, c) => {
+	for (i = c - 1; i >= 0; i--) {
+		if (gameMain.myData[r][i] != 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+document.onkeydown = function (event) {
+	var event = event || e || arguments[0];
+	if (event.keyCode == 37) {
+		moveLeft();
+	}
+	else if (event.keyCode == 39) {
+		moveRight();
+	}
+}

@@ -169,12 +169,108 @@ RightgetNEXTinRow = (r, c) => {
 	return -1;
 }
 
+moveTop = () => {
+	let before = String(gameMain.myData);
+	for (r = 0; r < 4; r++) {
+		moveTopInRow(r);
+	}
+	let after = String(gameMain.myData);
+	if (before != after) {
+		randomNum();
+		if (isgameOver()) {
+			gameMain.status = gameMain.gameOver;
+		}
+		dataChange();
+	}
+}
+
+moveTopInRow = (r) => {
+	for (c = 0; c < 3; c++) {
+		let next = TopgetNEXTinRow(r, c);
+		if (next != -1) {
+			if (gameMain.myData[c][r] == 0) {
+				gameMain.myData[c][r] = gameMain.myData[next][r];
+				gameMain.myData[next][r] = 0;
+				c++;
+			}
+			else if (gameMain.myData[c][r] == gameMain.myData[next][r]) {
+				gameMain.myData[c][r] *= 2;
+				gameMain.myData[next][r] = 0;
+				gameMain.score += gameMain.myData[c][r];
+			}
+		}
+		else {
+			break;
+		}
+	}
+}
+
+TopgetNEXTinRow = (r, c) => {
+	for (i = c + 1; i < 4; i++) {
+		if (gameMain.myData[i][r] != 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+moveBottom = () => {
+	let before = String(gameMain.myData);
+	for (r = 0; r < 4; r++) {
+		moveBottomInRow(r);
+	}
+	let after = String(gameMain.myData);
+	if (before != after) {
+		randomNum();
+		if (isgameOver()) {
+			gameMain.status = gameMain.gameOver;
+		}
+		dataChange();
+	}
+}
+
+moveBottomInRow = (r) => {
+	for (c = 3; c > 0; c--) {
+		let next = BottomgetNEXTinRow(r, c);
+		if (next != -1) {
+			if (gameMain.myData[c][r] == 0) {
+				gameMain.myData[c][r] = gameMain.myData[next][r];
+				gameMain.myData[next][r] = 0;
+				c++;
+			}
+			else if (gameMain.myData[c][r] == gameMain.myData[next][r]) {
+				gameMain.myData[c][r] *= 2;
+				gameMain.myData[next][r] = 0;
+				gameMain.score += gameMain.myData[c][r];
+			}
+		}
+		else {
+			break;
+		}
+	}
+}
+
+BottomgetNEXTinRow = (r, c) => {
+	for (i = c - 1; i >= 0; i--) {
+		if (gameMain.myData[i][r] != 0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 document.onkeydown = function (event) {
 	var event = event || e || arguments[0];
 	if (event.keyCode == 37) {
 		moveLeft();
 	}
+	else if (event.keyCode == 38) {
+		moveTop();
+	}
 	else if (event.keyCode == 39) {
 		moveRight();
+	}
+	else if (event.keyCode == 40) {
+		moveBottom();
 	}
 }
